@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& arr, int target) {
+      unordered_map<int,int> dp;
+    unordered_map<int,int> next;
+    dp[arr[0]]++;
+    dp[-arr[0]]++;
+    for(int i=1;i<arr.size();i++)
+    {
+        next.clear();
+        for(auto it:dp)
+        {
+            int key=it.first;
+            int val=it.second;
+            //next of index is incremented by val
+            next[key+arr[i]] += val;
+            next[key-arr[i]] += val;
+        }
+        dp=next;
+    }
+    return dp[target];  
+    }
+};
