@@ -1,0 +1,26 @@
+bool canPartition(vector<int> &arr, int n)
+{
+	// Write your code here.
+	int totalSum=0;
+	for(int num:arr)
+	{
+		totalSum+=num;
+	}
+	if(totalSum%2!=0)
+	return false;
+	int subsetSum=totalSum/2;
+	vector<bool> dp(subsetSum+1,false);
+	dp[0]=true;
+
+	for(int i=1;i<=n;i++)
+	{
+		for(int j=subsetSum;j>=0;j--)
+		{
+			if(j-arr[i-1]>=0)
+			{
+				dp[j]=dp[j-arr[i-1]]||dp[j];
+			}
+		}
+	}
+	return dp[subsetSum];
+}
